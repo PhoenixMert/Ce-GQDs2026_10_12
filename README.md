@@ -164,7 +164,7 @@ Author(s). (Year). Physics-Guided Reconstruction of Frequency-Dependent Electric
 ### Repository citation
 
 ```text
-PhoenixMert. (2026). Ce-GQDs2026_10_12: Physics-Guided Reconstruction of Frequency-Dependent Electrical Characteristics [Reproducibility package]. GitHub. https://github.com/PhoenixMert/Ce-GQDs2026_10_12
+Tuğrul Mert Orhan. (2026). Ce-GQDs2026_10_12: Physics-Guided Reconstruction of Frequency-Dependent Electrical Characteristics [Reproducibility package]. GitHub. https://github.com/PhoenixMert/Ce-GQDs2026_10_12
 ```
 
 Update the placeholders with the final publication DOI and archival version when available.
