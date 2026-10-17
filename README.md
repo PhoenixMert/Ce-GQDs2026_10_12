@@ -1,58 +1,161 @@
 # Physics-Guided Reconstruction of Frequency-Dependent Electrical Characteristics
 
-This repository provides the reproducibility package for the study:
+This repository hosts a single archive:
 
-> **Physics-Guided Reconstruction of Frequency-Dependent Electrical Characteristics for Reliable Interface-State Density Extraction in CeO₂ Nanoparticle-Doped Graphene Quantum Dot Devices**
+- [`CeO2_Manuscript_Complete_Reproducibility_Package_.zip`](./CeO2_Manuscript_Complete_Reproducibility_Package_.zip)
 
-## Overview
+The documentation below is based on direct inspection of that ZIP file and only describes files that are actually present.
 
-The project investigates the reconstruction of frequency-dependent electrical characteristics in CeO₂ nanoparticle-doped graphene quantum dot (CeO₂NPs–GQDs) devices. The primary goal is to support reliable extraction and interpretation of interface-state density using a physics-guided reconstruction framework.
+## Confirmed package structure (inside the ZIP)
 
-The repository is intended to document the computational and supporting materials associated with the study and to facilitate transparent reuse and independent verification of the reported analysis.
+After extraction, the package root is:
 
-## Repository Contents
+- `CeO2_Reproducibility_Package/`
 
-- [`CeO2_Manuscript_Complete_Reproducibility_Package_.zip`](./CeO2_Manuscript_Complete_Reproducibility_Package_.zip) — complete reproducibility package associated with the manuscript, including the available manuscript materials, data, analysis files, and supporting resources.
+Confirmed top-level contents:
 
-## Research Scope
+- `CeO2_Reproducibility_Package/README.md`
+- `CeO2_Reproducibility_Package/00_README/README.md`
+- `CeO2_Reproducibility_Package/00_README/FILE_INVENTORY.csv`
+- `CeO2_Reproducibility_Package/02_Raw_Data/`
+  - `corrected_1MHz_cached_values.csv`
+  - `corrected_1MHz_reference.csv`
+  - `experimental_cv_gv_long.csv`
+  - `experimental_nss_reference.csv`
+  - `hill_coleman_nss_reference_metrics.csv`
+  - `main_sheet_cached_values.csv`
+- `CeO2_Reproducibility_Package/03_Python_Code/`
+  - `current_reproduction/`
+    - `run_all.py`
+    - `run_sparse_reconstruction.py`
+    - `recompute_metrics_from_predictions.py`
+    - `verify_manuscript_numbers.py`
+    - `regenerate_numerical_figures.py`
+  - `legacy_public_code/`
+    - `README.md`, `ENVIRONMENT.md`, `requirements.txt`, `pytest.ini`
+    - `src/` (including `physics.py`, `data_loader.py`, `lofo.py`, `metrics.py`, `models/`)
+    - `scripts/` (01/02/03/05/07/09/10/11 workflow scripts + `scripts/README.md`)
+    - `tests/` (`test_data.py`, `test_physics.py`)
+- `CeO2_Reproducibility_Package/04_Analysis_Data/`
+  - `LOFO/`, `Sparse_Grid/`, `Derived_Rs_Gp_Nss/`, `Analytical_Baseline/`, `Nss_Sensitivity/`, `Physical_Consistency/`, `Repeated_Seeds/`
+- `CeO2_Reproducibility_Package/05_Tables/`
+  - `CSV/` (e.g., `Table1.csv` ... `Table6a.csv`, `Table6b.csv`, `TableS1.csv`, `TableS2.csv`)
+  - `Excel/` (e.g., `Table1.xlsx` ... `Table6.xlsx`, `TableS1.xlsx`, `TableS2.xlsx`)
+- `CeO2_Reproducibility_Package/06_Figures/`
+  - `Images/Figure01_FINAL.png` ... `Figure11_FINAL.png`
+  - `Excel_Data/` (`Figure01_Schematic_Metadata.xlsx`, `Figure02_Schematic_Metadata.xlsx`, `Figure03_Schematic_Metadata.xlsx`, `Figure06_Data.xlsx`, `Figure07_Data.xlsx`, `Figure08_Data.xlsx`, `Figure09_Data.xlsx`, `Figure10_Data.xlsx`, `Figure11_Data.xlsx`)
+- `CeO2_Reproducibility_Package/07_Environment/`
+  - `requirements.txt`
+  - `environment_notes.txt`
+- `CeO2_Reproducibility_Package/08_Checksums/SHA256SUMS.txt`
 
-The repository covers the following topics:
+## Purpose of included materials
 
-- Frequency-dependent electrical characterization
-- CeO₂ nanoparticle-doped graphene quantum dot devices
-- Interface-state density extraction
-- Physics-guided reconstruction of electrical characteristics
-- Reproducible semiconductor-device analysis
-- Interface and defect-state characterization
+- **Raw measurements**: `02_Raw_Data/`
+- **Python reproduction code**:
+  - `03_Python_Code/current_reproduction/` (current rerun/audit scripts)
+  - `03_Python_Code/legacy_public_code/` (earlier implementation with tests)
+- **Processed and analysis outputs**: `04_Analysis_Data/`
+- **Manuscript tables and figure assets**: `05_Tables/`, `06_Figures/`
+- **Environment and integrity metadata**: `07_Environment/`, `08_Checksums/`, `00_README/`
+
+## Prerequisites and dependencies (confirmed)
+
+From `07_Environment/environment_notes.txt`:
+
+- Recommended: **Python 3.11+**
+
+From `07_Environment/requirements.txt`:
+
+- `numpy`
+- `pandas`
+- `scipy`
+- `scikit-learn`
+- `xgboost`
+- `matplotlib`
+- `python-docx`
+- `torch`
+
+Additional pinned legacy environment is listed in:
+
+- `03_Python_Code/legacy_public_code/requirements.txt`
+- `03_Python_Code/legacy_public_code/ENVIRONMENT.md`
 
 ## Reproducibility
 
-The reproducibility package is provided to support transparent inspection and, where applicable, reproduction of the analyses and results reported in the associated study.
+### 1) Extract the archive
 
-### Recommended workflow
+From repository root:
 
-1. Download the reproducibility package from this repository.
-2. Extract the ZIP archive without changing the relative directory structure.
-3. Review the package-level documentation before running any scripts or modifying any data.
-4. Check the stated software, operating-system, and version requirements included in the package.
-5. Run the analysis in the documented order, preserving the supplied input data and configuration files.
-6. Compare generated figures, tables, and intermediate outputs with the reference results provided in the package.
-7. Record software versions, configuration changes, and any deviations from the documented workflow when reproducing the results.
+```bash
+unzip CeO2_Manuscript_Complete_Reproducibility_Package_.zip
+cd CeO2_Reproducibility_Package
+```
 
-### Reproducibility and reuse notes
+### 2) Install dependencies for current reproduction scripts
 
-- The ZIP archive should be treated as the authoritative source for the materials associated with this repository release.
-- Generated files should be written to a separate output directory whenever possible so that the original inputs remain unchanged.
-- Results may depend on software versions, numerical libraries, random seeds, instrument data, or local environment settings. These details should be documented in any independent reproduction.
-- If a required dependency or instruction is missing, please open an issue with the operating system, software versions, command used, and the observed error or discrepancy.
+```bash
+python -m pip install -r 07_Environment/requirements.txt
+```
+
+### 3) Run the current reproduction workflow
+
+```bash
+python 03_Python_Code/current_reproduction/run_all.py
+```
+
+Equivalent step-by-step commands:
+
+```bash
+python 03_Python_Code/current_reproduction/run_sparse_reconstruction.py
+python 03_Python_Code/current_reproduction/recompute_metrics_from_predictions.py
+python 03_Python_Code/current_reproduction/verify_manuscript_numbers.py
+python 03_Python_Code/current_reproduction/regenerate_numerical_figures.py
+```
+
+### 4) Optional fast numerical audit (no retraining)
+
+```bash
+python 03_Python_Code/current_reproduction/recompute_metrics_from_predictions.py
+python 03_Python_Code/current_reproduction/verify_manuscript_numbers.py
+```
+
+### 5) Optional file-integrity check
+
+```bash
+cd CeO2_Reproducibility_Package
+sha256sum -c 08_Checksums/SHA256SUMS.txt
+```
+
+## Expected outputs (evident from files/scripts)
+
+- Precomputed analysis CSV outputs already included under `04_Analysis_Data/`.
+- Final manuscript figure PNGs already included under `06_Figures/Images/`.
+- Table CSV/XLSX files already included under `05_Tables/`.
+- Running the current reproduction scripts creates `09_Recalculated/` (generated outputs), including:
+  - `rerun_sparse_primary_predictions.csv`
+  - `recalculated_sparse_primary_summary.csv`
+  - `recalculated_lofo_region_summary.csv`
+  - `recalculated_Table5_Rs.csv`
+  - `recalculated_Table5_Gp_over_omega.csv`
+  - `recalculated_Nss_metrics.csv`
+  - `figures/Figure8_C_R2_mean.png`, `Figure8_C_NRMSE_mean_pct.png`, `Figure8_G_R2_mean.png`, `Figure8_G_NRMSE_mean_pct.png`, `Figure11_Nss.png`
+
+## Confirmed limitations / cannot be determined from the current ZIP
+
+- No Jupyter notebooks (`.ipynb`) are present.
+- `08_Checksums/SHA256SUMS.txt` and `00_README/FILE_INVENTORY.csv` reference files such as:
+  - `01_Manuscript/Manuscript_FINAL_checked.docx`
+  - `05_Tables/Word/TableS1.docx`
+  - `05_Tables/Word/TableS2.docx`
+  These paths are referenced by metadata files but are **not present** in the inspected ZIP contents.
+- `03_Python_Code/legacy_public_code/src/config.py` points to a local `data/` layout (`data/raw`, `data/processed`) that is not present under `legacy_public_code/`, so a fully validated end-to-end legacy rerun cannot be confirmed from archive contents alone.
 
 ## Academic Citation
 
-If you use this repository, its data, scripts, figures, or derived materials in academic work, please cite both the associated manuscript and this repository.
+If you use this repository or package contents in academic work, cite both the manuscript and this repository.
 
-### Manuscript citation
-
-The final bibliographic information should be inserted here once the manuscript has an official publication record:
+### Manuscript citation (placeholder)
 
 ```text
 Author(s). (Year). Physics-Guided Reconstruction of Frequency-Dependent Electrical Characteristics for Reliable Interface-State Density Extraction in CeO₂ Nanoparticle-Doped Graphene Quantum Dot Devices. Journal, volume(issue), pages. DOI.
@@ -60,37 +163,18 @@ Author(s). (Year). Physics-Guided Reconstruction of Frequency-Dependent Electric
 
 ### Repository citation
 
-Until a DOI or archival record is available, the repository may be cited using the following template:
-
 ```text
-PhoenixMert. (2026). Ce-GQDs2026_10_12: Physics-Guided Reconstruction of Frequency-Dependent Electrical Characteristics [Reproducibility package]. GitHub. https://github.com/PhoenixMert/Ce-GQDs2026_10_12
+Tuğrul Mert Orhan. (2026). Ce-GQDs2026_10_12: Physics-Guided Reconstruction of Frequency-Dependent Electrical Characteristics [Reproducibility package]. GitHub. https://github.com/PhoenixMert/Ce-GQDs2026_10_12
 ```
 
-Please replace the placeholder bibliographic details with the final manuscript citation and the appropriate repository version or DOI when they become available.
+Update the placeholders with the final publication DOI and archival version when available.
 
 ## License and Usage Terms
 
-No open-source license has been declared for this repository at this time. Until a license is added, the contents should be considered **all rights reserved**.
+No formal open-source license file is currently present in this repository. Until explicit licensing is added, treat contents as **all rights reserved**.
 
-Unless explicit written permission is provided by the repository owner or another applicable rights holder:
+- Permitted: personal inspection and scholarly evaluation.
+- Not automatically permitted: redistribution, relicensing, or commercial reuse.
+- Academic reuse should include appropriate citation.
 
-- You may view and download the materials for personal inspection and scholarly evaluation.
-- You should not redistribute, sublicense, publish, or commercially reuse the contents.
-- Any academic use should include an appropriate citation to the associated manuscript and repository.
-- Redistribution of modified or extracted materials should not be presented as an official release of this project.
-
-A formal license should be added to the repository before broad reuse or redistribution is intended. The selected license should reflect the ownership and publication requirements of the manuscript, data, code, and any third-party materials included in the reproducibility package.
-
-## Data, Software, and Third-Party Materials
-
-Please consult the documentation included in the reproducibility package for information about data provenance, processing steps, software dependencies, and third-party components. Materials with separate ownership or licensing terms remain subject to those terms.
-
-## Contact
-
-For questions about the repository, reproducibility package, or associated research, please contact the repository owner through GitHub:
-
-**PhoenixMert**
-
-## Status
-
-This repository is maintained as a research and reproducibility resource. Publication details, archival identifiers, software requirements, and formal licensing information may be updated as the associated work progresses.
+When formal license information becomes available, this section should be updated accordingly.
